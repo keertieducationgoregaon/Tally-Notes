@@ -1,4 +1,4 @@
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+       @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -199,4 +199,85 @@
             margin: 2rem 0;
             color: #1e40af;
             border: 2px dashed #3b82f6;
+
         }
+
+
+
+
+
+
+/* ... Aapka puraana CSS waise hi rahega ... */
+
+/* Naya CSS Rule Jo Table ko Mobile par Scrollable bana dega */
+/* Yeh rule har 'section' ke andar maujood 'table' ke liye ek wrapper ka kaam karega */
+@media (max-width: 768px) {
+    header h1 { font-size: 2.3rem; }
+    .container { padding: 0 1.2rem; }
+    main section { padding: 2rem; }
+    .nav-links a { 
+        display: block;
+        margin: 1rem auto;
+    }
+
+    /* 🌟 Mobile Table Responsiveness ke liye Naya Code 🌟 */
+    
+    /* Table ke parents ko relative position dena zaroori nahi hai, 
+       lekin hum ek generic container target kar rahe hain */
+    
+    /* Har Table ko Wrapper ke bagair Scrollable banane ke liye */
+    table {
+        /* Table ke default style ko chhode bagair */
+        width: 100%; /* Default width */
+        min-width: 600px; /* Minimum width set kiya taake choti screen par scroll trigger ho */
+    }
+    
+    /* Isse har table ke oopar horizontal scroll lag jayega.
+       Hum 'main section' ko target kar rahe hain taake content zyada na phailay.
+       Hum `main section` ke andar table ko force kar rahe hain. */
+    main section {
+        /* Section padding ko barkarar rakhte hue, 
+           agar section mein table ho to usko manage karna hoga. 
+           Hum table ko hi overflow de sakte hain, magar yeh har browser mein achcha kaam nahi karta. 
+           Behtar tareeqa: Table ko parent element ke width se bada kar ke, 
+           aur parent ko overflow dena. */
+           
+        /* Kyuki hum HTML nahi badal sakte, hum section/container ko hi manage karenge. 
+           Lekin 'section' mein doosra content bhi hai. 
+           Isliye, ek "hidden" wrapper ka approach behtar hai. */
+    }
+    
+    /* Sirf Table par Overflow ka asar kamzor hota hai, lekin koshish karte hain */
+    /* Hum ek naya class nahi istemaal kar rahe, lekin humein table ke parent element par 
+       `overflow-x: auto;` lagana padega. Kyuki hum HTML nahi badal sakte, 
+       main aapke CSS mein ek naya container rule de raha hoon jo <table> ke liye use hoga. */
+    
+    /* Best CSS Only solution: HTML change kiye bagair har table par kaam kare.
+       Hum ek generic div wrapper nahi bana sakte, isliye hum Table ke upar koi aisi 
+       property use karenge jo kaam kare. */
+    
+    /* Table ka margin hata do aur isko ek 'div' ki tarah behave karwao 
+       jiske andar table hai. Yeh 'section' ke andar ke table par apply hoga. */
+    section table {
+        display: block; /* Table ko block element banao */
+        overflow-x: auto; /* Scrollbar apply karo */
+        /* Margin wapas laga dete hain jo pehle table par lagi thi */
+        margin: 2.8rem 0; 
+        
+        /* Box-shadow aur border-radius ko section ya table par rehne do */
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+        
+        /* Scrollable area ke andar ke table ko poori tarah dikhao */
+        width: max-content; 
+        min-width: 100%; /* Chhoti screen par 100% se zyada tabhi hoga jab content zyada ho */
+    }
+    
+    /* Inner th/td borders ko theek karne ke liye: */
+    section table th, 
+    section table td {
+        white-space: nowrap; /* Content ko ek hi line mein rakhne ki koshish */
+        border-collapse: collapse;
+    }
+    /* Isse table khud scrollable ho jayega. */
+}
